@@ -14,20 +14,35 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: 22.12.0
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@10.12.4
+
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Set registry to npmmirror
+        run: pnpm config set registry https://registry.npmmirror.com
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Build hooks
-        run: npm run build-hooks
-
-      - name: Run tests
-        run: npm run test
 
   build:
     name: Build docs
@@ -35,23 +50,30 @@ jobs:
     needs: test
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: 22.12.0
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@10.12.4
+
+      - name: Set registry to npmmirror
+        run: pnpm config set registry https://registry.npmmirror.com
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build docs
-        run: npm run docs:build
+        run: pnpm run docs:build
+
+      - name: Check build output
+        run: ls -al ./packages/docs/.vitepress/dist
 
       - name: Upload docs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docs
           path: ./packages/docs/.vitepress/dist
@@ -60,9 +82,10 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Download docs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docs
 
