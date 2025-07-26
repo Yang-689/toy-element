@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
 <template>
-  <er-button>this is a button</er-button>
+  <er-button type="primary" size="small">this is a button</er-button>
 </template>
 
 <style scoped>
