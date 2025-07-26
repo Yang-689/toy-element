@@ -1,15 +1,44 @@
 {
   "name": "toy-element",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Components library by Vue3 + Ts",
+  "type": "module",
+  "main": "./dist/umd/index.umd.cjs",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/core/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/es/index.js",
+      "require": "./dist/umd/index.umd.cjs",
+      "types": "./dist/types/core/index.d.ts"
+    },
+    "./dist/": {
+      "import": "./dist/",
+      "require": "./dist/"
+    }
+  },
+  "sideEffects": [
+    "./dist/index.css",
+    "./dist/theme/*.css"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "run-p build-es build-umd",
+    "build:watch": "run-p build-es:watch build-umd:watch",
+    "build-es": "vite build --config build/vite.esm.config.ts",
+    "build-umd": "vite build --config build/vite.umd.config.ts",
+    "build-es:watch": "vite build --watch --config build/vite.esm.config.ts",
+    "build-umd:watch": "vite build --watch --config build/vite.umd.config.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@toy-element/components": "workspace:*"
+    "@toy-element/components": "workspace:*",
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/vue-fontawesome": "^3.1.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.18"
   }
 }
