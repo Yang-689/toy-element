@@ -53,7 +53,6 @@ export default defineConfig({
           if (includes(id, '/packages/utils') || includes(id, 'plugin-vue:export-helper')) return 'utils'
 
           for (const item of getDirectoriesSync('../components')) {
-            console.log(item, 'item')
             if (includes(id, `/packages/components/${item}`)) return item
           }
         },
@@ -64,7 +63,6 @@ export default defineConfig({
 
 function getDirectoriesSync(basePath: string) {
   const entries = readdirSync(basePath, { withFileTypes: true })
-  debugger
   return map(
     filter(entries, (entry) => entry.isDirectory()),
     (entry) => entry.name,

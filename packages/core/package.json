@@ -1,5 +1,5 @@
 {
-  "name": "toy-element",
+  "name": "test-ui-007",
   "version": "1.0.0",
   "description": "Components library by Vue3 + Ts",
   "type": "module",
@@ -8,9 +8,9 @@
   "types": "./dist/types/core/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/core/index.d.ts",
       "import": "./dist/es/index.js",
-      "require": "./dist/umd/index.umd.cjs",
-      "types": "./dist/types/core/index.d.ts"
+      "require": "./dist/umd/index.umd.cjs"
     },
     "./dist/": {
       "import": "./dist/",
@@ -27,7 +27,8 @@
     "build-es": "vite build --config build/vite.esm.config.ts",
     "build-umd": "vite build --config build/vite.umd.config.ts",
     "build-es:watch": "vite build --watch --config build/vite.esm.config.ts",
-    "build-umd:watch": "vite build --watch --config build/vite.umd.config.ts"
+    "build-umd:watch": "vite build --watch --config build/vite.umd.config.ts",
+    "release": "release-it"
   },
   "keywords": [],
   "author": "",
