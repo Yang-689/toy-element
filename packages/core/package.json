@@ -6,6 +6,9 @@
   "main": "./dist/umd/index.umd.cjs",
   "module": "./dist/es/index.js",
   "types": "./dist/types/core/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types/core/index.d.ts",
