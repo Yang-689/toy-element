@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed, useSlots, inject } from 'vue'
+  import { ref, computed, inject } from 'vue'
   import type { ButtonProps, ButtonEmits, ButtonInstance } from './types'
   import { BUTTON_GROUP_CTX_KEY } from './constants'
   import { throttle } from 'lodash-es'
@@ -31,7 +31,7 @@
   const handleBtnClick = (e: MouseEvent) => {
     emits('click', e)
   }
-  const handlBtneCLickThrottle = throttle(handleBtnClick, props.throttleDuration, { trailing: false })
+  const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration, { trailing: false })
 
   defineExpose<ButtonInstance>({
     ref: _ref,
@@ -57,7 +57,7 @@
       'is-loading': loading,
     }"
     :autofocus="autofocus"
-    @click="(e: MouseEvent) => (useThrottle ? handlBtneCLickThrottle(e) : handleBtnClick(e))"
+    @click="(e: MouseEvent) => (useThrottle ? handleBtnClickThrottle(e) : handleBtnClick(e))"
   >
     <template v-if="loading">
       <slot name="loading">
