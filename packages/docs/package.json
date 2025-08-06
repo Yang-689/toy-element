@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
@@ -13,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "@vitepress-demo-preview/component": "^2.5.1",
+    "@vitepress-demo-preview/plugin": "^1.4.0"
   }
 }

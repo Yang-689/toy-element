@@ -4,15 +4,15 @@ layout: home
 
 hero:
   name: "Toy-Element"
-  text: "高仿 Element 组件库"
-  tagline: My great project tagline
+  text: "高仿 ElementPlus 组件库"
+#  tagline: My great project tagline
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 快速开始
+      link: /get-started
+#    - theme: alt
+#      text: API Examples
+#      link: /api-examples
 
 features:
   - title: Feature A

@@ -40,4 +40,8 @@ coverage
 .cache
 
 # Generated files
-packages/**/dist 
+packages/**/dist
+
+# Docs
+**/.vitepress/dist
+**/.vitepress/cache
