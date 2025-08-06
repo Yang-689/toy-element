@@ -7,6 +7,6 @@ module.exports = {
         beforeEach: [require('postcss-for'), require('postcss-color-mix')]
       }
     }),
-    // require('cssnano')({ preset: 'default' })
+    require('cssnano')({ preset: 'default' })
   ]
 }

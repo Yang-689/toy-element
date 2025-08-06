@@ -3,6 +3,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import components from './components'
 import '@toy-element/theme/index.css'
+import printLogo from './printLogo.ts'
+
+printLogo()
 
 library.add(fas)
 const installer = makeInstaller(components)

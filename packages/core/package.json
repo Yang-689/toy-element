@@ -1,5 +1,5 @@
 {
-  "name": "test-ui-007",
+  "name": "toy-element",
   "version": "1.0.1",
   "description": "Components library by Vue3 + Ts",
   "type": "module",
@@ -29,18 +29,23 @@
     "build:watch": "run-p build-es:watch build-umd:watch",
     "build-es": "vite build --config build/vite.esm.config.ts",
     "build-umd": "vite build --config build/vite.umd.config.ts",
-    "build-es:watch": "vite build --watch --config build/vite.esm.config.ts",
-    "build-umd:watch": "vite build --watch --config build/vite.umd.config.ts",
+    "build-es:watch": "vite build --watch --mode development --config build/vite.esm.config.ts",
+    "build-umd:watch": "vite build --watch --mode development --config build/vite.umd.config.ts",
     "release": "release-it"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@toy-element/components": "workspace:*",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
-    "@fortawesome/vue-fontawesome": "^3.1.1"
+    "@fortawesome/vue-fontawesome": "^3.1.1",
+    "@toy-element/components": "workspace:*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "terser": "^5.43.1",
+    "vite-plugin-compression2": "^2.2.0"
   },
   "peerDependencies": {
     "vue": "^3.5.18"

@@ -3,6 +3,7 @@ import { fn, within, userEvent, expect, clearAllMocks } from 'storybook/test'
 import { set } from 'lodash-es'
 
 import { ErCollapse, ErCollapseItem } from 'toy-element'
+import 'toy-element/dist/theme/Collapse.css'
 
 type Story = StoryObj<typeof ErCollapse>
 
