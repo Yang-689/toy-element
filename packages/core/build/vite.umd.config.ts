@@ -1,8 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import terser from '@rollup/plugin-terser'
+import { visualizer } from "rollup-plugin-visualizer";
 import { resolve } from 'node:path'
-import { readFileSync } from 'node:fs'
+import { readFile } from 'node:fs'
 import { compression } from 'vite-plugin-compression2'
 import shell from 'shelljs'
 import { defer, delay } from 'lodash-es'
@@ -12,12 +13,10 @@ import * as process from 'node:process'
 const TRY_MOVE_STYLES_DELAY = 750 as const
 
 function moveStyles() {
-  try {
-    readFileSync('./dist/umd/index.css.gz')
-  } catch (err) {
-    return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
-  }
-  shell.cp('./dist/umd/index.css', './dist/index.css')
+  readFile("./dist/umd/index.css.gz", (err) => {
+    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY);
+    defer(() => shell.cp("./dist/umd/index.css", "./dist/index.css"));
+  });
 }
 
 export default defineConfig(({ mode }) => {
@@ -30,6 +29,9 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      visualizer({
+        filename: "dist/stats.umd.html",
+      }),
       compression({ include: /.(cjs|css)$/i }),
       terser({
         compress: {

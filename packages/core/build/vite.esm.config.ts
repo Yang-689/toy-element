@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import terser from '@rollup/plugin-terser'
+import { visualizer } from "rollup-plugin-visualizer";
 import { resolve } from 'path'
 import { readdirSync, readdir, readFile, readFileSync } from 'fs'
 import { defer, delay, filter, map, includes } from 'lodash-es'
@@ -21,6 +22,9 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      visualizer({
+        filename: "dist/stats.es.html",
+      }),
       dts({
         tsconfigPath: '../../tsconfig.build.json',
         outDir: 'dist/types',
@@ -122,16 +126,8 @@ function getDirectoriesSync(basePath: string) {
 }
 
 function moveStyles() {
-  try {
-    readdirSync('./dist/es/theme')
-    shell.mv('./dist/es/theme', './dist')
-
-    // readFile('./dist/index.css', (err, data) => {
-    //   if (err) {
-    //     shell.cp('./dist/umd/index.css', './dist/index.css')
-    //   }
-    // })
-  } catch (err) {
-    delay(moveStyles, TRY_MOVE_STYLES_DELAY)
-  }
+  readdir('./dist/es/theme', (err) => {
+    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
+    defer(() => shell.mv('./dist/es/theme', './dist'))
+  })
 }
